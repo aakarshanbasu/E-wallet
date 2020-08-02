@@ -1,2 +1,2 @@
-# E-wallet
-# E-wallet
+The sample screenshots are contained under the screenshots folder.
+
