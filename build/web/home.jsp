@@ -4,6 +4,10 @@
     Author     : rajen
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
         HttpSession session1 = request.getSession(false);
@@ -18,6 +22,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to E-wallet</title>
         <link rel="icon" href="logo_crop_2.jpg">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
         <style>
@@ -298,11 +305,12 @@ class="close" title="Close">&times;</span>
     <div class="user-select login-links">
         <br>
             &nbsp;&nbsp;<a href="addbankaccount.jsp"><i class="fas fa-landmark">&nbsp;</i>Add Bank Account&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="far fa-paper-plane">&nbsp;</i>Set Default Account&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="far fa-address-book"></i>&nbsp;To Contact&nbsp;</a><br>            
-            &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-landmark">&nbsp;</i>To Account&nbsp;</a><br>
-            &nbsp;&nbsp;<a  href="index.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-down"></i>&nbsp;Request Money&nbsp;</a><br><br>
+            <!--&nbsp;&nbsp;<a href=""><i class="far fa-paper-plane">&nbsp;</i>Set Default Account&nbsp;</a><br>-->
+            &nbsp;&nbsp;<a href="tocontact.jsp"><i class="far fa-address-book"></i>&nbsp;To Contact&nbsp;</a><br>            
+            &nbsp;&nbsp;<a href="toaccount.jsp"><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-landmark">&nbsp;</i>To Account&nbsp;</a><br>
+            &nbsp;&nbsp;<a  href="check balance.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
+            &nbsp;&nbsp;<a  href="hist.jsp" ><i class="fas fa-history"></i>Transaction History&nbsp;</a><br><br>
+            <!--&nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-down"></i>&nbsp;Request Money&nbsp;</a><br><br>-->
         </div>
 </div>
             </div>
@@ -313,9 +321,9 @@ class="close1" title="Close">&times;</span>
 <div class="modal-content1 animate1">
     <div class="user-select1 login-links1">
         <br>
-            &nbsp;&nbsp;<a href="indx.jsp"><i class="fas fa-landmark">&nbsp;</i>Electricity&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="far fa-paper-plane">&nbsp;</i>Landline&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="far fa-address-book"></i>&nbsp;DTH&nbsp;</a><br>  <br>          
+            &nbsp;&nbsp;<a href="electricity.jsp"><i class="fas fa-lightbulb">&nbsp;</i>Electricity&nbsp;</a><br>
+            &nbsp;<a href="landline.jsp"><span class="glyphicon glyphicon-phone-alt"></span>Landline&nbsp;</a><br>
+            &nbsp;&nbsp;<a href="dth.jsp"><i class="fas fa-satellite-dish"></i>&nbsp;DTH&nbsp;</a><br>  <br>          
 <!--            &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-landmark">&nbsp;</i>To Account&nbsp;</a><br>
             &nbsp;&nbsp;<a  href="index.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
             &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-down"></i>&nbsp;Request Money&nbsp;</a><br><br>-->
@@ -366,6 +374,41 @@ window.onclick = function(event) {
     </body>
 </html>
 <%
+    
+            try{
+            Class.forName("oracle.jdbc.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","rpdprasad");
+            Statement stm = con.createStatement();
+            ResultSet res= stm.executeQuery("select * from trg");
+            if(res.next())
+            {
+                String n=res.getString("sender");
+                %>
+                        <center>                <div>
+                    
+                                <p style="font-family: ink free;">Exciting Reward coming soon!!<br>The highest number Of transactions done are <%=n%>. <br>
+                                Do some transactions now to improve your chances of winning exciting rewards.
+                                </p>
+                                        
+                                
+                                
+                    </div>
+                                        
+</center>
+
+
+
+<%
+            }
+            }
+            catch(Exception e)
+            {
+                
+            }
+    
+    
+    
     }
+
 
 %>

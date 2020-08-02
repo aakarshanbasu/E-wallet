@@ -83,13 +83,27 @@
   to {transform: scale(1)}
 }
         </style>
+        <script type="text/javascript">
+        function validate(form){
+            var upi=form.upi.value;
+            var upi2=form.upi_confirm.value;
+            if(upi.length!=4)
+            {
+                alert('Enter a 4 digit UPI Pin');
+                return false;
+            }
+            if(!upi===upi2)
+            {
+                alert('PINs do not match');
+                return false;
+            }
+            return true;
+        }    
+        </script>
     </head>
     <body>
-        <div id="id06" class="modal">
-<!--            <span onclick="document.getElementById('id06').style.display='none'"
-class="close" title="Close">&times;</span>-->
-<div class="modal-content animate">
-    <div style="font-family: ink free;">&nbsp;Fetching information from your bank&nbsp;</div>
+
+
     <% 
      String bank=request.getParameter("bank");
           
@@ -98,8 +112,49 @@ try{
             Class.forName("oracle.jdbc.OracleDriver");
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","rpdprasad");
             Statement stm = con.createStatement();
+            //check if upi pin Exists
             
-            stm.executeQuery("insert into user_details values("")");
+            
+            String fname=request.getParameter("fname");
+            String lname=request.getParameter("lname");
+            String acc_no=request.getParameter("acc");
+//            int acc1=Integer.parseInt(acc_no);
+            String bank_name=request.getParameter("bank_name");
+            
+            ResultSet res=stm.executeQuery("select upi_pin from bank_acc where acc_no="+acc_no+" and upi_pin IS NULL");
+            if(res.next()){
+
+        %>
+        
+        
+        
+               <div>Create UPI Pin for your bank account</div>
+        <form method="post" action="addupi.jsp" onsubmit="return validate(this);">
+            <input type="text" name="upi" placeholder="Create UPI Pin" required=""><br>
+            <input type="text" name="upi_confirm" placeholder="Confirm UPI Pin" required="">
+            <button type="submit">Create PIn</button>
+            
+        </form>
+        
+        
+        
+        
+        
+    <%
+            }
+            else{
+                //display upi pin already exists and insert into user_details
+           
+                stm.executeQuery("insert into user_details values('"+name+"','"+fname+"','"+lname+"','"+bank_name+"','"+acc_no+"')");
+                %>
+                <script type="text/javascript">
+                alert('UPI Pin for your account already exists.Your account has been successfully added');
+                window.location("home.jsp");
+                </script>
+                <%
+
+            }
+//}
             
 }
 catch(Exception e)
@@ -107,8 +162,7 @@ catch(Exception e)
     e.printStackTrace();
 }
     %>
-</div>
-            </div>
+
     </body>
 </html>
 <% 

@@ -1,24 +1,24 @@
 <%-- 
-    Document   : home
-    Created on : 2 Oct, 2019, 2:57:39 PM
+    Document   : hist
+    Created on : 24 Nov, 2019, 10:53:55 AM
     Author     : rajen
 --%>
 
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
         HttpSession session1 = request.getSession(false);
         if ( session != null)
         {
-           String mobile= (String)session.getAttribute("n");
+           String name= (String)session.getAttribute("n");
 
         %>
 <!DOCTYPE html>
 <html>
-    <head>
+     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to E-wallet</title>
         <link rel="icon" href="logo_crop_2.jpg">
@@ -275,140 +275,110 @@ login-links1 {
   from {transform: scale(0)}
   to {transform: scale(1)}
 }
+table,th,td {
+                border: 1px solid black;
+                margin-top: 50px;
+                font-family: ink free;
+                font-size: 30px;
+/*                text-align:  center;*/
+            }
+            td{
+                width: 200px;
+                                text-align:  center;
+
+            }
+            body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  /*padding: 50px;*/
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.header {
+  /*background-color: #f1f1f1;*/
+  padding: 30px;
+  text-align: center;
+}
         </style>
     </head>
     <body>
-        <div class="header">
+       <div class="header">
     <!--<h2 style="font-family: sans-serif">E-->     
     <br>
     <img src="logo_crop_2.jpg" alt=""/> 
   <p style="font-family: ink free; font-size: 45px">Payments made easy!!</p>
   <hr>
 </div>
-        <a style="font-family: ink free; margin-left: 1000px; text-decoration: none; color:black;" href="logout.jsp"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
-        <div class="main">
-        <div class="  user-select login-links" >
-        <center>
-
-            
-            <a style="font-family: ink free;" onclick="document.getElementById('id04').style.display='block'"><i class="fas fa-landmark"></i>&nbsp;Money Transfers&nbsp;</a>
-            
-                <a style="font-family: ink free;"onclick="document.getElementById('id05').style.display='block'"><i class="far fa-money-bill-alt"></i>&nbsp;Bills&nbsp;</a>
-                <br>
-                <br>
-            </center>
-    </div>
-            <div id="id04" class="modal">
-            <span onclick="document.getElementById('id04').style.display='none'"
-class="close" title="Close">&times;</span>
-<div class="modal-content animate">
-    <div class="user-select login-links">
-        <br>
-            &nbsp;&nbsp;<a href="addbankaccount.jsp"><i class="fas fa-landmark">&nbsp;</i>Add Bank Account&nbsp;</a><br>
-            <!--&nbsp;&nbsp;<a href=""><i class="far fa-paper-plane">&nbsp;</i>Set Default Account&nbsp;</a><br>-->
-            &nbsp;&nbsp;<a href="tocontact.jsp"><i class="far fa-address-book"></i>&nbsp;To Contact&nbsp;</a><br>            
-            &nbsp;&nbsp;<a href="toaccount.jsp"><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-landmark">&nbsp;</i>To Account&nbsp;</a><br>
-            &nbsp;&nbsp;<a  href="check balance.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
-            &nbsp;&nbsp;<a  href="hist.jsp" ><i class="fas fa-history"></i>Transaction History&nbsp;</a><br><br>
-            <!--&nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-down"></i>&nbsp;Request Money&nbsp;</a><br><br>-->
-        </div>
-</div>
-            </div>
-            
-            <div id="id05" class="modal1">
-            <span onclick="document.getElementById('id05').style.display='none'"
-class="close1" title="Close">&times;</span>
-<div class="modal-content1 animate1">
-    <div class="user-select1 login-links1">
-        <br>
-            &nbsp;&nbsp;<a href="electricity.jsp"><i class="fas fa-lightbulb">&nbsp;</i>Electricity&nbsp;</a><br>
-            &nbsp;<a href="landline.jsp"><span class="glyphicon glyphicon-phone-alt"></span>Landline&nbsp;</a><br>
-            &nbsp;&nbsp;<a href="dth.jsp"><i class="fas fa-satellite-dish"></i>&nbsp;DTH&nbsp;</a><br>  <br>          
-<!--            &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-landmark">&nbsp;</i>To Account&nbsp;</a><br>
-            &nbsp;&nbsp;<a  href="index.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
-            &nbsp;&nbsp;<a href=""><i class="fas fa-long-arrow-alt-down"></i>&nbsp;Request Money&nbsp;</a><br><br>-->
-        </div>
-</div>
-            </div>
-        </div>
-<!--        <div class="user-select login-links">
-            <a href="indx.jsp"><i class="fas fa-landmark">&nbsp;</i>Add Bank Account&nbsp;</a><br>
-            <a href=""><i class="far fa-paper-plane">&nbsp;</i>Send Money&nbsp;</a><br>
-
-            <a  href="index.jsp" ><i class="fas fa-rupee-sign">&nbsp;</i>Check Bank Balance&nbsp;</a><br>
-        </div>
-        
-        <div class="user-select login-links ">
-            <a href="indx.jsp"><i class="fas fa-lightbulb">&nbsp;</i>Electricity&nbsp;</a></div>
-            <div class="user-select login-links land"> <a  href="index.jsp" ><i class="fas fa-blender-phone">&nbsp;</i>Landline&nbsp;</a></div>
-            <div class="user-select login-links dth"> <a  href="index.jsp" ><i class="fas fa-satellite-dish">&nbsp;</i>DTH&nbsp;</a></div>
-
-        </div>-->
-
-
-<script>
-// Get the modal
-var modal = document.getElementById('id04');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-</script>
-        <script>
-// Get the modal
-var modal1 = document.getElementById('id05');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal1) {
-    modal1.style.display = "none";
-  }
-}
-
-</script>
-
-    </body>
-</html>
-<%
-    
+        <div class="back"><a href="home.jsp" style="font-family: ink free; margin-left: 1000px; text-decoration: none; color:black;">Go To Home</a></div>
+        <%
             try{
-            Class.forName("oracle.jdbc.OracleDriver");
+                Class.forName("oracle.jdbc.OracleDriver");
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","rpdprasad");
             Statement stm = con.createStatement();
-            ResultSet res= stm.executeQuery("select * from trg");
-            if(res.next())
+            ResultSet res=stm.executeQuery("select * from transaction_contacts where sender="+name+"");
+            %>
+                                            <div style="font-family: ink free; align-content: center;color: black;margin-top: 50px;font-size: 45px">Debit History</div>
+
+            <%
+            while(res.next())
             {
-                String n=res.getString("sender");
                 %>
-                        <center>                <div>
-                    
-                                <p style="font-family: ink free;">Exciting Reward coming soon!!<br>The highest number Of transactions done are <%=n%>. <br>
-                                Do some transactions now to improve your chances of winning exciting rewards.
-                                </p>
-                                        
-                                
-                                
-                    </div>
-                                        
-</center>
+                <p>
+                    Transaction ID&nbsp;<%=res.getInt("tid")%><br>
+                <%=res.getString("amt")%>
+                Credited to&nbsp;<%=res.getString("receiver")%>
+                on&nbsp;<%=res.getString("tdate")%>               
 
-
-
-<%
+                <br></p>
+                <%
             }
+ResultSet res5=stm.executeQuery("select * from transaction_contacts where receiver="+name+"");
+            %>
+                                            <div style="font-family: ink free; align-content: center;color: black;margin-top: 50px;font-size: 45px">Credit History</div>
+
+            <%
+            while(res5.next())
+            {
+                %>
+                <p>
+                    Transaction ID&nbsp;<%=res5.getInt("tid")%><br>
+                <%=res5.getString("amt")%>               
+                Received from&nbsp;<%=res5.getString("sender")%>
+                on&nbsp;<%=res5.getString("tdate")%>
+                <br></p>
+                <%
+            }
+
+ResultSet res8=stm.executeQuery("select * from transaction_bills where sender="+name+"");
+            %>
+                                            <div style="font-family: ink free; align-content: center;color: black;margin-top: 50px;font-size: 45px">Bill Payment History</div>
+
+            <%
+            while(res8.next())
+            {
+                %>
+                <p>
+                    Transaction ID&nbsp;<%=res8.getInt("tid")%><br>
+                <%=res8.getString("amt")%>               
+                Paid to&nbsp;<%=res8.getString("receiver")%>
+                on&nbsp;<%=res8.getString("tdate")%>
+                <br></p>
+                <%
+            }
+%>
+                <br><br>
+                <%
             }
             catch(Exception e)
             {
                 
             }
-    
-    
-    
+            %>
+        
+    </body>
+</html>
+<%
     }
-
-
 %>
